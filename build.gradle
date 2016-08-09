@@ -1,0 +1,31 @@
+repositories{
+    mavenCentral()
+}
+
+apply plugin: "java"
+
+dependencies{
+    testCompile "junit:junit:4.12"
+    compile "com.pi4j:pi4j-core:1.1"
+    compile "com.pi4j:pi4j-gpio-extension:1.1"
+}
+
+
+sourceSets{
+    main.java.srcDirs = ["src/main"]
+    test.java.srcDirs = ["src/test"]
+}
+
+jar{
+    manifest{
+        attributes(
+            'Class-Path': configurations.compile.collect{ it.getName()}.join(' '),
+            'Main-Class': 'main.Main'
+        )
+    }
+    from{
+        (configurations.runtime).collect{
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}

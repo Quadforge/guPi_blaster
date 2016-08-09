@@ -1,0 +1,1 @@
+{"filter":false,"title":"build - Idle","tooltip":"build - Idle","undoManager":{"mark":-1,"position":-1,"stack":[]},"output":{"id":"output624930","width":996,"height":145,"scrollTop":-1,"config":{"toolbar":true,"command":"grade build jar","runner":"Shell command","name":"build"}},"timestamp":1470147850708,"hash":"da39a3ee5e6b4b0d3255bfef95601890afd80709"}

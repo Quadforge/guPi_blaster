@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-Description: Pi4J Java Library for the Raspberry Pi
+Bundle-License: http://www.gnu.org/licenses/lgpl.txt
+Bundle-SymbolicName: pi4j-core
+Archiver-Version: Plexus Archiver
+Built-By: roberts
+Bnd-LastModified: 1429372918777
+Bundle-ManifestVersion: 2
+Bundle-DocURL: http://www.pi4j.com
+Bundle-Vendor: Pi4J
+Import-Package: com.pi4j.wiringpi
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-2.3.0.201405100607
+Export-Package: com.pi4j.concurrent;version="1.0.0",com.pi4j.util;vers
+ ion="1.0.0",com.pi4j.jni;version="1.0.0",com.pi4j.wiringpi;version="1
+ .0.0",com.pi4j.system;version="1.0.0",com.pi4j.temperature;version="1
+ .0.0",com.pi4j.io.serial;version="1.0.0",com.pi4j.io.serial.impl;uses
+ :="com.pi4j.io.serial";version="1.0.0",com.pi4j.io.gpio;uses:="com.pi
+ 4j.concurrent,com.pi4j.io.gpio.event,com.pi4j.io.gpio.trigger,com.pi4
+ j.wiringpi";version="1.0.0",com.pi4j.io.gpio.event;uses:="com.pi4j.io
+ .gpio";version="1.0.0",com.pi4j.io.gpio.exception;uses:="com.pi4j.io.
+ gpio";version="1.0.0",com.pi4j.io.gpio.impl;uses:="com.pi4j.io.gpio,c
+ om.pi4j.io.gpio.event,com.pi4j.io.gpio.trigger";version="1.0.0",com.p
+ i4j.io.gpio.tasks.impl;uses:="com.pi4j.io.gpio,com.pi4j.io.gpio.event
+ ";version="1.0.0",com.pi4j.io.gpio.trigger;uses:="com.pi4j.io.gpio";v
+ ersion="1.0.0",com.pi4j.io.i2c;version="1.0.0",com.pi4j.io.i2c.impl;u
+ ses:="com.pi4j.io.i2c";version="1.0.0"
+Bundle-Name: Pi4J :: Java Library (Core)
+Bundle-Version: 1.0
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0_40
+

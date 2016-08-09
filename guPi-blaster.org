@@ -1,0 +1,102 @@
+#+TITLE: guPi-Blaster Documentation
+#+AUTHOR: Cody Finn, Harrison Beerley, Jacob Smith, Jacob Tarlo
+
+* What is guPi-Blaster
+  guPi-Blaster is a multifaceted tool designed to test motor and prop combinations.
+  The software consists of 3 major parts.
+  - Pulse Generator
+  - Peripheral Reading
+  - Data Collection
+** Pulse Generator
+   In order to drive the motors used on our quadcopters we use Electronic Speed Controllers(ESCs).
+   The ESCs control the speed of the motor they are attached to. By varying the pulse width of the electric 
+   signal going to the ESC you can control how fast the motor will spin. The ESC uses a pulse with a frequency
+   of 50Hz, and a varying pulse width of 1-2ms. A 1ms pulse width is the slowest the motor will go
+   (It probably wont spin at all) and 2ms is the fastest the motor will spin.
+** Peripheral Reading
+   guPi-Blaster is currently configured to read from a:
+   - Voltmeter
+   - Ammeter
+   - Thermometer
+   - Force Meter
+*** Voltmeter
+    The voltmeter is actually a Digital-to-Analog Converter(DAC). Specifically it is the 
+    ADS1015. This is a 12 bit DAC that will convert the analog signal across two of
+    its input pins. The analog signal will be represented by a 12 bit integer. 
+*** Ammeter 
+    The ammeter is another Digital-to-Analog Converter(DAC) that uses the same ADS1015 
+    the voltmeter communicates across. In the same fashion as the voltmeter, the 12 bit DAC
+    will convert an analog signal across two of its input pins. The analog signal will be
+    represented by a 12  bit integer.
+*** Thermometer
+    The thermometer is linked to a Cold-Junction Compensated Thermocouple-to-Digital Converter 
+    specifically known as a MAX31855. The MAX31855 reads data from a thermometer and stores it
+    in a register using a digital format with 14-bit resolution. 
+*** Force Meter
+    
+** Data Collection
+   The guPi-Blaster application automatically logs information and data while in use to a log file.
+   The log file is in the CSV format so that it can easily be imported into Excel or other graphing software.
+   Data that is logged to the log file is shown in parallel in the GUI itself, this is a live feed of
+   the data being read from the instruments. Information stored to the CSV file are calculated averages 
+   from the live feed, and additional information from calculations are added based on the raw data, including:
+   - Lift (in grams), which is calculated using the equation Force = Mass * Acceleration, inputting force from the force meter and acceleration due to gravity, resulting in Force/Acceleration = Mass (in kg), multiplying the resultant by 1000 to get the calculation in grams. 
+   - Power (in watts) is calculated by multiplying voltage and current. 
+* How to Use guPi-Blaster
+  guPi-Blaster implements an intuitive interface that includes the following features:
+- Square wave generator state control (on/off button)
+- Pulse width incrementation/decrementation
+- Auto test mode
+- Live data feed
+- Log file selection
+- Preference saving 
+** Square Wave Generator State Control (On/Off Button)
+   The state control button is a big button located at the bottom of the window and defualts to the off state 
+   upon program startup. When pressed, the state of the button will change to on and will begin to produce square
+   waves. Every time the state changes from on to off, the pulse width will set itself automatically to 1.0 ms to 
+   prevent damage to the motor by rapidly speeding up the next time it is turned on again. If auto test mode is enabled and 
+   the state control button is pressed, setting it to off, the auto cycle will be interupted and the pulse width
+   will be set back to 1.0 ms.
+** Pulse Width Incrementation/Decrementation
+   While the state of the program is on and is producing square waves, the pulse width of these square waves
+   can be manually altered by intervals of 0.1 ms by pressing the plus and minus buttons in the top corners of the window,
+   incrementing and decrementing the pulse width by 0.1 ms respectively. The label between the two buttons visualizes the 
+   current pulse width being produced; pulse widths below 1.0 ms and above 2.0 ms cannot be achieved. 
+** Auto Test Mode
+   By pressing the "Auto" button in the left middle of the window, auto mode is enabled, automatically incrementing
+   the pulse width from 1.0 ms to 2.0 ms at 0.1 ms intervals with a one second buffer between each one to allow for data to be 
+   recorded at each pulse width. Again, this can be cancelled at any time by turning the sqaure wave generator off.
+** Live Data Feed
+   In the center of the window, a live feed of the data being recorde from all four sensors can be read.
+** Log File Selection
+   On the righthand side of the window in the middle a button can be found  reading "Choose File". Pressing this
+   button will open a file chooser menu that allows you to select a file you wish data to be written to. If
+   no such file exists already, you have the option to create one.
+** Preference Saving 
+   When the program is first launched you will be asked to specify a preference file location. With such a file 
+   provided, your preference as to where your log file is will be saved even if you close and reopen the program.
+   If you do not specify a preference file, you will simply have to specify the location of a log file each time the
+   program is used. 
+* How to Build from Source
+** Dependencies
+   - Java
+   - Gradle
+*** How to install Java
+**** Windows
+     Go to Java's manual download page and go to the Windows Online section. Download the file and run it.
+     Follow the install prompts and select "Finish" when done.
+**** Linux
+     Open up a terminal and type in the command: "sudo apt-get install openjdk-7-jdk" and press enter.
+**** OSX
+*** How to install Gradle
+**** Windows
+     Download the required files from Gradle's website. Unzip the Gradle download to the folder to which you would like to install Gradle, eg. “C:\Program Files”. The subdirectory gradle-x.x will be created from the archive, where x.x is the version.
+     Add location of your Gradle “bin” folder to your path. Open the system properties (WinKey + Pause), select the “Advanced” tab, and the “Environment Variables” button, then add “C:\Program Files\gradle-x.x\bin” (or wherever you unzipped Gradle) to the end of your “Path” variable under System Properties. Be sure to omit any quotation marks around the path even if it contains spaces. Also make sure you separated from previous PATH entries with a semicolon “;”.
+     In the same dialog, make sure that JAVA_HOME exists in your user variables or in the system variables and it is set to the location of your JDK, e.g. C:\Program Files\Java\jdk1.7.0_06 and that %JAVA_HOME%\bin is in your Path environment variable.
+     Open a new command prompt (type cmd in Start menu) and run gradle –version to verify that it is correctly installed.
+**** Linux
+     Open up a terminal and type in the command: "sudo apt-get install gradle" and press enter.
+**** OSX
+** Building the jar file
+   In order to build the jar file you simply type into the command line
+   "gradle build jar"
